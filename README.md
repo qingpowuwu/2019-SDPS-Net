@@ -52,18 +52,41 @@ We provide:
 
 ## Testing
 ### Download the trained models
-```
-sh scripts/download_pretrained_models.sh
-```
-If the above command is not working, please manually download the trained models from BaiduYun ([LCNet and NENet](https://pan.baidu.com/s/10huOyPkfDSkDUK23_j4y1w?pwd=i5ha)) and put them in `./data/models/`.
+
+直接从百度云 ([LCNet and NENet](https://pan.baidu.com/s/10huOyPkfDSkDUK23_j4y1w?pwd=i5ha)) 上面下载 2个 trained models: 
+
+![alt text](image.png)
+
+然后 put them in `./data/models/`.
+
+![alt text](image-1.png)
 
 ### Test SDPS-Net on the DiLiGenT main dataset
+#### (1) Crop DiLiGenT 数据集 中的 pmsData 文件夹中的 2d-images
+
+运行 下面的 command (我把原 repo 中 `prepare_diligent_dataset.sh`的 具体代码 修改了一下，因为我已经下载了 DiLiGenT 数据集 在 `/home/qingpowuwu/Project_15_illumination/0_Dataset_Original/DiLiGenT`) 来 crop DiLiGenT/pmsData 中的2d-images。
+
+
+把 /home/qingpowuwu/Project_15_illumination/0_Dataset_Original/DiLiGenT/pmsData/filenames.txt 重新命名成 /home/qingpowuwu/Project_15_illumination/0_Dataset_Original/DiLiGenT/pmsData/names.txt
+
+然后运行下面的脚本：
+
 ```shell
 # Prepare the DiLiGenT main dataset
-sh scripts/prepare_diligent_dataset.sh
-# This command will first download and unzip the DiLiGenT dataset, and then centered crop 
+sh scripts/1_prepare_diligent_dataset.sh
+# This command will centered crop DiLiGenT/pmsData 中的 2d-images，并且保存到 DiLiGenT/pmsData_crop 文件夹里面
 # the original images based on the object mask with a margin size of 15 pixels.
+```
+得到：
+![alt text](image-2.png)
 
+打开看看，发现 图片确实被 crop 了:
+
+![alt text](image-3.png)
+
+#### (2) Testing Trained Models 
+
+```shell
 # Test SDPS-Net on DiLiGenT main dataset using all of the 96 image
 CUDA_VISIBLE_DEVICES=0 python eval/run_stage2.py --retrain data/models/LCNet_CVPR2019.pth.tar --retrain_s2 data/models/NENet_CVPR2019.pth.tar
 # Please check the outputs in data/models/
@@ -71,6 +94,10 @@ CUDA_VISIBLE_DEVICES=0 python eval/run_stage2.py --retrain data/models/LCNet_CVP
 # If you only have CPUs, please add the argument "--cuda" to disable the usage of GPU
 python eval/run_stage2.py --cuda --retrain data/models/LCNet_CVPR2019.pth.tar --retrain_s2 data/models/NENet_CVPR2019.pth.tar
 ```
+
+![alt text](image-4.png)
+
+这个 bugs 和 `4_PS-FCN-master-2018` 的代码中也会遇到，不知道是不是因为这篇工作在测试的时候，只有 10个 2d-images, 所以 test 了10个 2d-images 之后就会报错
 
 ### Test SDPS-Net on your own dataset
 You have two options to test our method on your dataset. In the first option, you have to implement a customized Dataset class to load your data, which should not be difficult. Please refer to `datasets/UPS_DiLiGenT_main.py` for an example that loads the DiLiGenT main dataset.
