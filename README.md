@@ -84,7 +84,16 @@ sh scripts/1_prepare_diligent_dataset.sh
 
 ![alt text](image-3.png)
 
-#### (2) Testing Trained Models 
+#### (2) 把 下载的几个原始数据集都 创建 链接到 当前的 5_SDPS-Net-2019 目录下：
+
+通过运行脚本：
+
+```shell
+sh scripts/2_create_links_to_datasets.sh
+```
+
+
+#### (3) Testing Trained Models 
 
 ```shell
 # Test SDPS-Net on DiLiGenT main dataset using all of the 96 image
