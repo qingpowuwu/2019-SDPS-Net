@@ -8,7 +8,9 @@ sys.path.append(root_path)
 from utils import utils
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--input_dir',  default='data/datasets/DiLiGenT/pmsData')
+# parser.add_argument('--input_dir',  default='data/datasets/DiLiGenT/pmsData')
+# parser.add_argument('--obj_list',   default='objects.txt')
+parser.add_argument('--input_dir',  default='/home/qingpowuwu/Project_15_illumination/0_Dataset_Original/DiLiGenT/pmsData')
 parser.add_argument('--obj_list',   default='objects.txt')
 parser.add_argument('--suffix',     default='crop')
 parser.add_argument('--file_ext',   default='.png')
