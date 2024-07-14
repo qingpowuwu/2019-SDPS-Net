@@ -50,6 +50,11 @@ We provide:
 - Code to test on DiLiGenT main dataset
 - Full code to train a new model, including codes for debugging, visualization and logging.
 
+## 下载原始数据集
+
+和复现 4_PS-FCN-master-2018 这篇工作的步骤一样，因为我把 原始数据都下载到了 /home/qingpowuwu/Project_15_illumination/0_Dataset_Original & /home/qingpowuwu/Project_15_illumination/0_Downloaded_Original 目录下，所以我就不重新下载了。在这个 ReadME.md 的后面我通过创建 链接来直接访问这个原始数据。
+
+
 ## Testing
 ### Download the trained models
 
